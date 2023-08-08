@@ -6,6 +6,7 @@ public class Trash : MonoBehaviour
 {
     public bool hitByHook;
     public GameObject hook;
+    public UI_Manager ui;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,8 @@ public class Trash : MonoBehaviour
             transform.position = hook.transform.GetChild(0).transform.position;
             if (transform.position.y > 4) {
                 GameObject.Destroy(this.gameObject);
-
+                // add to the score
+                ui.addScore(10);
             }
 
         }
