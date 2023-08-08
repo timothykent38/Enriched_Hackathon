@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+public class te : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -14,5 +14,11 @@ public class Test : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Hook") {
+            transform.position = other.gameObject.transform.position;
+        }
     }
 }
