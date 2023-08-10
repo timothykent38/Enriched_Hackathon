@@ -10,7 +10,9 @@ public class Bomb : MonoBehaviour
     public UI_Manager ui;
     public GameObject hookArea;
     public MoveHook mh;
-
+    public GameObject boom;
+    public GameObject aud;
+    public AudioSource auder;
     // Start is called before the first frame update
 
     // Start is called before the first frame update
@@ -21,9 +23,10 @@ public class Bomb : MonoBehaviour
         hookArea = GameObject.FindWithTag("Hook_Area");
         mh = hook.GetComponent<MoveHook>();
         ui = GameObject.FindWithTag("UI").GetComponent<UI_Manager>();
-
+        
         mh = hook.GetComponent<MoveHook>();
-
+        aud = GameObject.FindWithTag("Bomb_Sound");
+        auder = aud.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,15 +35,30 @@ public class Bomb : MonoBehaviour
         
     }
 
+    IEnumerator boomAnimation(Transform t) {
+        gameObject.GetComponent<Renderer>().enabled = false;
+        GameObject b = Instantiate(boom, t.position, t.rotation);
+        yield return new WaitForSeconds(1);
+        Debug.Log("Destory");
+        GameObject.Destroy(b.gameObject);
+       
+        GameObject.Destroy(this.gameObject);
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Hook")
         {
             mh.moveUp = true;
-            Debug.Log(mh.moveUp);
+            auder.Play();
+           
             lives.loseLife();
-            GameObject.Destroy(this.gameObject);
+
+            Transform t = transform;
             
+            
+            
+            StartCoroutine(boomAnimation(t));  
         }
     }
 }

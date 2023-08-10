@@ -9,6 +9,9 @@ TagManager:
   - UI
   - Lives
   - Hook_Area
+  - GameOver
+  - Item_Sound
+  - Bomb_Sound
   layers:
   - Default
   - TransparentFX

@@ -2,18 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeaItem : MonoBehaviour
+public class Shirt : MonoBehaviour
 {
     public bool hitByHook;
     public GameObject hook;
     public UI_Manager ui;
     public GameObject hookArea;
     public MoveHook mh;
-    public int score;
-    public GameObject aud;
-    public AudioSource auder;
-    // Start is called befor
-    //e the first frame update
+
+    // Start is called before the first frame update
     void Start()
     {
         hitByHook = false;
@@ -21,8 +18,6 @@ public class SeaItem : MonoBehaviour
         hookArea = GameObject.FindWithTag("Hook_Area");
         mh = hook.GetComponent<MoveHook>();
         ui = GameObject.FindWithTag("UI").GetComponent<UI_Manager>();
-        aud = GameObject.FindWithTag("Item_Sound");
-        auder = aud.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,20 +28,15 @@ public class SeaItem : MonoBehaviour
             //  Debug.Log(hook);
             Vector2 move = new Vector2(hook.transform.position.x, hook.transform.position.y);
             transform.position = hookArea.transform.position;
-            if (transform.position.y > 6.5f)
+            if (transform.position.y > 4)
             {
                 GameObject.Destroy(this.gameObject);
                 // add to the score
-                addScore(score);
+                ui.addScore(10);
             }
 
         }
     }
-
-    void addScore (int score) {
-        ui.addScore(score);
-    }
-
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -55,7 +45,6 @@ public class SeaItem : MonoBehaviour
         {
             hitByHook = true;
             mh.moveUp = true;
-            auder.Play();
         }
     }
 }

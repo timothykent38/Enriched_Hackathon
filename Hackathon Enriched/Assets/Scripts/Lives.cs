@@ -5,10 +5,11 @@ using UnityEngine;
 public class Lives : MonoBehaviour
 {
     int livesRemaining = 3;
+    UI_Manager ui;
     // Start is called before the first frame update
     void Start()
     {
-       
+        ui = GameObject.FindWithTag("UI").GetComponent<UI_Manager>();
     }
 
     // Update is called once per frame
@@ -17,7 +18,7 @@ public class Lives : MonoBehaviour
         // if lives remaining == 0 end game
         if (livesRemaining == 0)
         {
-            endGame();
+            ui.gameOver();
         }
     }
 
@@ -26,11 +27,7 @@ public class Lives : MonoBehaviour
         transform.GetChild(livesRemaining).gameObject.SetActive(false);
     }
 
-    void endGame()
-    {
-        Time.timeScale = 0;
-        // set the game over text to be active
-    }
+    
 
 
 
